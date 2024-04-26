@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +16,6 @@ class MessageFactory extends Factory
      */
     public function definition(): array
     {
-
         $senderId = $this->faker->randomElement([0, 1]);
         if ($senderId === 0) {
             $senderId = $this->faker->randomElement(\App\Models\User::where('id', '!=', 1)->pluck('id')->toArray());

@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use App\Models\Conversation;
 use App\Models\Group;
 use App\Models\Message;
 use App\Models\User;
 use Carbon\Carbon;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
