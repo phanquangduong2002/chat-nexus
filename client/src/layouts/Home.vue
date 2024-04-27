@@ -1,6 +1,9 @@
 <template>
     <router-view></router-view>
 </template>
-<script></script>
 
-<style scoped></style>
+<script>
+export default {}
+</script>
+
+<style></style>
