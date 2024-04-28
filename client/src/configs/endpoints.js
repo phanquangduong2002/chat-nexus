@@ -1,10 +1,10 @@
 export default {
     // user
-    REGISTER_API: {
-        method: 'get',
+    REGISTER_USER_API: {
+        method: 'post',
         url: '/auth/register'
     },
-    LOGIN_API: {
+    LOGIN_USER_API: {
         method: 'post',
         url: '/auth/login'
     }

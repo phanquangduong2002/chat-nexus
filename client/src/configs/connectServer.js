@@ -19,8 +19,7 @@ const connectServer = config => {
 }
 
 export const endpointAccess = path => {
-    const endpoint = import.meta.env.PROD == true ? import.meta.env.API_PROD : import.meta.env.API_DEV
-
+    const endpoint = import.meta.env.PROD == true ? import.meta.env.VITE_API_PROD : import.meta.env.VITE_API_DEV
     return `${endpoint}${path}`
 }
 
