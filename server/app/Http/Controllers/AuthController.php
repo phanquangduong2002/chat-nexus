@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,12 +21,11 @@ class AuthController extends Controller
             'password' => 'required|string|min:5|max:100'
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json(['success' => false, 'error' => $validator->errors()], 422);
         }
         if (!$token = Auth::attempt($validator->validated())) {
-            return response()->json(['success' => false, 'error' => 'Wrong account or password'], 401);
+            return response()->json(['success' => false, 'error' => ['email' => ['Wrong account or password'], 'password' => ['Wrong account or password']]], 401);
         }
-
 
         $refreshToken = $this->createRefreshToken();
 
@@ -40,7 +40,7 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed|min:5|max:100',
         ]);
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'error' => $validator->errors()->toJson()], 400);
+            return response()->json(['success' => false, 'error' => $validator->errors()], 400);
         }
         $user = User::create(array_merge(
             $validator->validated(),
