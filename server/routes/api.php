@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,5 @@ Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
     Route::get('/send-verify-mail/{email}', [AuthController::class, 'sendVerifyMail']);
     Route::post('/forget-password', [AuthController::class, 'forgetPassword']);
 });
+
+Broadcast::routes(['middleware' => 'api']);

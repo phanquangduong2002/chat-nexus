@@ -4,7 +4,7 @@ import { gtka } from './connectServer'
 
 window.Pusher = Pusher
 
-const echo = () => {
+export const echoInstance = () => {
   const token = gtka()
 
   return new Echo({
@@ -14,15 +14,15 @@ const echo = () => {
     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-    authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
+    authEndpoint: import.meta.env.VITE_PUSHER_AUTH_ENDPOINT,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     enabledTransports: ['ws', 'wss'],
     auth: {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${gtka()}`
       }
     }
   })
 }
 
-export { echo }
+export default { echoInstance }

@@ -2,8 +2,6 @@ import axios from 'axios'
 
 import { TIMEOUT, KEY_USER_STORAGE } from './constantTypes'
 
-import { echo } from './echo'
-
 const connectServer = config => {
   let headersDefault = {
     'Content-Type': 'application/json; charset=utf-8'
@@ -13,10 +11,6 @@ const connectServer = config => {
   const token = gtka()
   if (token) {
     headers.Authorization = `Bearer ${token}`
-  }
-
-  if (window.echo) {
-    headers['X-Socket-Id'] = window.echo.socketId()
   }
 
   return axios.create({

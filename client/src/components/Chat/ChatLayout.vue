@@ -4,12 +4,14 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { echo } from '../../configs/echo'
+import { echoInstance } from '../../configs/echo'
+
 export default defineComponent({
   created() {
-    const echoInstance = echo()
-    echoInstance
-      .join('online')
+    const echo = echoInstance()
+
+    echo
+      .join('chat')
       .here(users => {
         console.log('Online users:', users)
       })
@@ -19,6 +21,11 @@ export default defineComponent({
       .leaving(user => {
         console.log(user.name + ' left the channel.')
       })
+  },
+  beforeUnmount() {
+    const echo = echoInstance()
+
+    echo.leave('chat')
   }
 })
 </script>
