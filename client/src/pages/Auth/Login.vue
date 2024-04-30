@@ -124,7 +124,7 @@ export default defineComponent({
 
       if (res.success) {
         userStore.login(res.data.access_token, res.data.user)
-        router.push({ name: 'home-chat' })
+        router.push({ name: 'home' })
       }
     }
 

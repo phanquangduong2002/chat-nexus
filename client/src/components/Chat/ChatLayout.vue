@@ -4,9 +4,12 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { echo } from '../../configs/echo'
 export default defineComponent({
   created() {
-    window.Echo.join('online')
+    const echoInstance = echo()
+    echoInstance
+      .join('online')
       .here(users => {
         console.log('Online users:', users)
       })

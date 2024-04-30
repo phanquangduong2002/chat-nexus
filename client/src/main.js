@@ -6,29 +6,39 @@ import App from './App.vue'
 
 import router from './routes'
 
-import Echo from 'laravel-echo'
-import Pusher from 'pusher-js'
-import { gtka } from './configs/connectServer'
+import { echo } from './configs/echo'
 
-window.Pusher = Pusher
+// import Echo from 'laravel-echo'
+// import Pusher from 'pusher-js'
 
-const token = gtka()
+// window.Pusher = Pusher
 
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: import.meta.env.VITE_PUSHER_APP_KEY,
-  wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-  wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-  wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-  forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-  enabledTransports: ['ws', 'wss']
-})
+// import { gtka } from './configs/connectServer'
+// const token = gtka()
+
+// window.Echo = new Echo({
+//   broadcaster: 'pusher',
+//   key: import.meta.env.VITE_PUSHER_APP_KEY,
+//   wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
+//   wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
+//   wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
+//   forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+//   authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
+//   cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+//   enabledTransports: ['ws', 'wss'],
+//   auth: {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   }
+// })
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
+
+app.config.globalProperties.$echo = echo
 
 app.use(pinia)
 app.use(router)

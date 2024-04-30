@@ -4,39 +4,27 @@ import { gtka } from '../configs/connectServer'
 
 const routes = [
   {
-    path: '/auth',
-    name: 'auth',
-    meta: {
-      isAuthenticated: false
-    },
-    component: () => import('@/layouts/Auth.vue'),
-    children: [
-      {
-        path: 'login',
-        name: 'auth-login',
-        component: () => import('@/pages/Auth/Login.vue')
-      },
-      {
-        path: 'signup',
-        name: 'auth-signup',
-        component: () => import('@/pages/Auth/Register.vue')
-      }
-    ]
+    path: '/auth/login',
+    name: 'auth-login',
+    component: () => import('@/pages/Auth/Login.vue')
+  },
+  {
+    path: '/auth/signup',
+    name: 'auth-signup',
+    component: () => import('@/pages/Auth/Register.vue')
   },
   {
     path: '/',
     name: 'home',
-    component: () => import('@/layouts/Home.vue'),
+    component: () => import('@/pages/Home/Home.vue'),
     meta: {
       isAuthenticated: true
-    },
-    children: [
-      {
-        path: '',
-        name: 'home-chat',
-        component: () => import('@/pages/Home/Home.vue')
-      }
-    ]
+    }
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'error',
+    component: () => import('../pages/Error/Error.vue')
   }
 ]
 
@@ -47,19 +35,19 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
+  const user = userStore.user
   const token = gtka()
+
   if (to?.meta.isAuthenticated) {
-    if (userStore.user && token) {
+    if (user && token) {
       next()
     } else {
-      next({ name: 'auth-login' })
+      next('/auth/login')
     }
+  } else if (user && token && (to.path === '/auth/login' || to.path === '/auth/signup')) {
+    next('/')
   } else {
-    if (userStore.user && token && (to.name === 'auth-login' || to.name === 'auth-signup')) {
-      next({ name: 'home-chat' })
-    } else {
-      next()
-    }
+    next()
   }
 })
 
