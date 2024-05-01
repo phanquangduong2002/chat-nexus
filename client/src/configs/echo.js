@@ -4,7 +4,7 @@ import { gtka } from './connectServer'
 
 window.Pusher = Pusher
 
-export const echoInstance = () => {
+const echoInstance = () => {
   const token = gtka()
 
   return new Echo({
@@ -25,4 +25,6 @@ export const echoInstance = () => {
   })
 }
 
-export default { echoInstance }
+export const echo = echoInstance()
+
+export default { echo }

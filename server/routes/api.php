@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConversationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
 });
 
 Broadcast::routes(['middleware' => 'api']);
+
+Route::group(['prefix' => 'conversation', 'middleware' => 'api'], function () {
+    Route::get('/', [ConversationController::class, 'getConversations']);
+});

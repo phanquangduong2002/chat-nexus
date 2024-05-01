@@ -80,19 +80,19 @@ export const localDeUserStore = str => {
   if (!str) {
     str = localStorage.getItem(KEY_USER_STORAGE)
   }
-  if (!str) return {}
+  if (!str) return null
   try {
     return JSON.parse(str)
   } catch (error) {
     console.log('error string localDeUserStore', error)
-    return {}
+    return null
   }
 }
 
 export const gtka = () => {
   let str = localStorage.getItem(KEY_USER_STORAGE)
   let jd = localDeUserStore(str)
-  if (!jd) return false
+  if (!jd) return null
   return jd
 }
 export default { get, post, put, deleted, gtka, endpointAccess }
