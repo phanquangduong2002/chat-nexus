@@ -9,6 +9,11 @@ export default {
     url: '/auth/login'
   },
 
+  REFRESH_TOKEN_API: {
+    method: 'post',
+    url: 'auth/refresh'
+  },
+
   // conversations
   GET_CONVERSATIONS_API: {
     method: 'get',

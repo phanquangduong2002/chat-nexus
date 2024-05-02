@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ConversationController extends Controller
 {
-    //
-
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => []]);
+    }
     public function getConversations()
     {
         $conversations = Auth::id() ? Conversation::getConversationsForSidebar(Auth::user()) : [];

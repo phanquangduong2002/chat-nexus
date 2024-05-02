@@ -1,7 +1,13 @@
 <template>
-  <div>
+  <div class="flex items-start justify-start">
     <Sidebar />
-    <div>Chat layout</div>
+    <ConversationLayout
+      :conversations="conversations"
+      :selectedConversation="selectedConversation"
+      :localConversations="localConversations"
+      :sortedConversations="sortedConversations"
+      @isUserOnline="isUserOnline"
+    />
   </div>
 </template>
 
@@ -9,16 +15,17 @@
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import Sidebar from '../../components/Sidebar/Sidebar.vue'
+import Sidebar from '@/components/Sidebar/Sidebar.vue'
+import ConversationLayout from '@/components/Conversation/ConversationLayout.vue'
 
 import { echo } from '../../configs/echo'
 import { getConversations } from '../../webServices/conversationService'
 
 export default defineComponent({
-  components: { Sidebar },
+  components: { Sidebar, ConversationLayout },
   setup() {
     const conversations = ref([])
-    const selectedConversation = ref([])
+    const selectedConversation = ref(null)
     const localConversations = ref([])
     const sortedConversations = ref([])
 
@@ -28,10 +35,12 @@ export default defineComponent({
     return { conversations, selectedConversation, localConversations, sortedConversations, onlineUsers, isUserOnline }
   },
   watch: {
-    'this.conversations'() {
+    conversations() {
       this.localConversations = this.conversations
+      console.log('localConversations', this.localConversations)
     },
-    'this.localConversations'() {
+    localConversations() {
+      this.sortedConversations = [...this.localConversations]
       this.sortedConversations.sort((a, b) => {
         if (a.blocked_at && b.blocked_at) {
           return a.blocked_at > b.blocked_at ? 1 : -1
@@ -51,6 +60,8 @@ export default defineComponent({
           return 0
         }
       })
+
+      console.log('sortedConversations', this.sortedConversations)
     }
   },
   methods: {
@@ -82,6 +93,7 @@ export default defineComponent({
       const data = await getConversations()
       console.log(data)
       if (data.success) this.conversations = [...data.conversations]
+      console.log('conversations', this.conversations)
     }
   },
   created() {

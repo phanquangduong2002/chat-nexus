@@ -123,7 +123,7 @@ export default defineComponent({
       }
 
       if (res.success) {
-        userStore.login(res.data.access_token, res.data.user)
+        userStore.login(res.data.access_token, res.data.refresh_token, res.data.user)
         router.push('/')
       }
     }

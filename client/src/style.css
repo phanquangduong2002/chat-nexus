@@ -148,7 +148,7 @@ html *::-webkit-scrollbar-track {
 
 .custom-scrollbar::-webkit-scrollbar {
   border-radius: 20px;
-  width: 6px;
+  width: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {

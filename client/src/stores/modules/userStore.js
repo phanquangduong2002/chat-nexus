@@ -1,18 +1,20 @@
 import { defineStore } from 'pinia'
 import { USER_STORE } from './../../configs/storeTypes'
-import { removeUserStoreStore, localEnUserStore } from './../../configs/connectServer'
+import { removeUserStore, removeRefreshUserStore, localEnUserStore, localEnRefreshUserStore } from './../../configs/connectServer'
 
 export const useUserStore = defineStore(USER_STORE, {
   state: () => ({
     user: null
   }),
   actions: {
-    login(accToken, user) {
+    login(accToken, refToken, user) {
       localEnUserStore(accToken)
+      localEnRefreshUserStore(refToken)
       this.user = user
     },
     logout() {
-      removeUserStoreStore()
+      removeUserStore()
+      removeRefreshUserStore()
       this.user = null
     }
   },

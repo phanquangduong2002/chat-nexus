@@ -47,14 +47,14 @@
                 <label for="password-confirmation">Confirm password</label>
                 <div class="relative">
                   <input
-                    :type="isShowPasswordConfirmation ? 'text' : 'password'"
+                    :type="isShowPassword ? 'text' : 'password'"
                     name="password-confirmation"
                     id="password-confirmation"
                     v-model="password_confirmation"
                     placeholder=""
                   />
-                  <button @click.prevent="isShowPasswordConfirmation = !isShowPasswordConfirmation" class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" v-if="!isShowPasswordConfirmation" class="w-full h-full fill-current">
+                  <button @click.prevent="isShowPassword = !isShowPassword" class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" v-if="!isShowPassword" class="w-full h-full fill-current">
                       <path
                         fill-rule="evenodd"
                         clip-rule="evenodd"
@@ -62,7 +62,7 @@
                         fill="currentColor"
                       />
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" v-if="isShowPasswordConfirmation" class="w-full h-full fill-current">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" v-if="isShowPassword" class="w-full h-full fill-current">
                       <path
                         d="M9.52513 4.52513C10.1815 3.86875 11.0717 3.5 12 3.5C12.9283 3.5 13.8185 3.86875 14.4749 4.52513C14.7873 4.83751 15.0344 5.20276 15.2078 5.59999L15.4078 6.05825C15.6287 6.56443 16.2181 6.79568 16.7243 6.57477L17.6408 6.17478C18.147 5.95387 18.3783 5.36445 18.1574 4.85827L17.9574 4.40001C17.6355 3.66243 17.1763 2.98389 16.5962 2.40381C15.3772 1.18482 13.7239 0.5 12 0.5C10.2761 0.5 8.62279 1.18482 7.40381 2.40381C6.18482 3.62279 5.5 5.27609 5.5 7V10H5C3.34315 10 2 11.3431 2 13V20C2 21.6569 3.34315 23 5 23H19C20.6569 23 22 21.6569 22 20V13C22 11.3431 20.6569 10 19 10H8.5V7C8.5 6.07174 8.86875 5.1815 9.52513 4.52513Z"
                         fill="currentColor"
@@ -133,7 +133,6 @@ export default defineComponent({
     const password = ref('')
     const password_confirmation = ref('')
     const isShowPassword = ref(false)
-    const isShowPasswordConfirmation = ref(false)
 
     const errors = ref(null)
     const loading = ref(false)
@@ -155,7 +154,7 @@ export default defineComponent({
       }
 
       if (res.success) {
-        userStore.login(res.data.access_token, res.data.user)
+        userStore.login(res.data.access_token, res.data.refresh_token, res.data.user)
         router.push('/')
       }
     }
@@ -165,7 +164,6 @@ export default defineComponent({
       password,
       password_confirmation,
       isShowPassword,
-      isShowPasswordConfirmation,
       errors,
       loading,
       register
