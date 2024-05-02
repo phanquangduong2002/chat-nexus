@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-[100vh] bg-themeSecondary rounded-2xl">
-    <ConversationSidebar :selectedConversation="selectedConversation" :sortedConversations="sortedConversations" @isUserOnline="isUserOnline" />
+    <ConversationSidebar />
   </div>
 </template>
 
@@ -10,13 +10,7 @@ import ConversationSidebar from '@/components/Conversation/ConversationSidebar.v
 
 export default defineComponent({
   components: { ConversationSidebar },
-  props: {
-    conversations: Array,
-    selectedConversation: Object,
-    localConversations: Array,
-    sortedConversations: Array,
-    isUserOnline: Function
-  }
+  props: {}
 })
 </script>
 

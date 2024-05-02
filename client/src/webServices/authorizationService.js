@@ -10,6 +10,6 @@ export const loginUser = dataPost => {
 }
 
 export const refreshToken = dataPost => {
-  return connectServer[api.REFRESH_TOKEN_API.method](api.REFRESH_TOKEN_API.url)
+  return connectServer[api.REFRESH_TOKEN_API.method](api.REFRESH_TOKEN_API.url, dataPost)
 }
 export default { registerUser, loginUser, refreshToken }

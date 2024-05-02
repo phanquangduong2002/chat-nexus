@@ -88,10 +88,11 @@ class AuthController extends Controller
 
             if (!$user) return response()->json(['success' => false, 'error' => 'User not found', 404]);
 
-            Auth::invalidate();
+            // Auth::invalidate();
 
             $token = Auth::login($user);
             $refreshToken = $this->createRefreshToken();
+
 
             return $this->createNewToken($token, $refreshToken);
         } catch (JWTException $e) {

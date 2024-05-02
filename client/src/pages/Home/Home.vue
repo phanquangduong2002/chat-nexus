@@ -1,69 +1,26 @@
 <template>
   <div class="flex items-start justify-start">
     <Sidebar />
-    <ConversationLayout
-      :conversations="conversations"
-      :selectedConversation="selectedConversation"
-      :localConversations="localConversations"
-      :sortedConversations="sortedConversations"
-      @isUserOnline="isUserOnline"
-    />
+    <ConversationLayout />
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import ConversationLayout from '@/components/Conversation/ConversationLayout.vue'
-
 import { echo } from '../../configs/echo'
 import { getConversations } from '../../webServices/conversationService'
+import { useHomeStore } from '../../stores/modules/homeStore'
 
 export default defineComponent({
   components: { Sidebar, ConversationLayout },
   setup() {
-    const conversations = ref([])
-    const selectedConversation = ref(null)
-    const localConversations = ref([])
-    const sortedConversations = ref([])
-
-    const onlineUsers = ref({})
-    const isUserOnline = userId => onlineUsers[userId]
-
-    return { conversations, selectedConversation, localConversations, sortedConversations, onlineUsers, isUserOnline }
+    const homeStore = useHomeStore()
+    return { homeStore }
   },
-  watch: {
-    conversations() {
-      this.localConversations = this.conversations
-      console.log('localConversations', this.localConversations)
-    },
-    localConversations() {
-      this.sortedConversations = [...this.localConversations]
-      this.sortedConversations.sort((a, b) => {
-        if (a.blocked_at && b.blocked_at) {
-          return a.blocked_at > b.blocked_at ? 1 : -1
-        } else if (a.blocked_at) {
-          return 1
-        } else if (b.blocked_at) {
-          return -1
-        }
-
-        if (a.last_message_date && b.last_message_date) {
-          return b.last_message_date.localeCompare(a.last_message_date)
-        } else if (a.last_message_date) {
-          return -1
-        } else if (b.last_message_date) {
-          return 1
-        } else {
-          return 0
-        }
-      })
-
-      console.log('sortedConversations', this.sortedConversations)
-    }
-  },
+  watch: {},
   methods: {
     connectWs() {
       echo
@@ -91,9 +48,12 @@ export default defineComponent({
     },
     async loadData() {
       const data = await getConversations()
-      console.log(data)
-      if (data.success) this.conversations = [...data.conversations]
-      console.log('conversations', this.conversations)
+      console.log('conversations', data.conversations)
+      if (data.success) {
+        this.homeStore.updateConversations(data.conversations)
+        this.homeStore.updateLocalConversations(data.conversations)
+        this.homeStore.updateSortedConversations(data.conversations)
+      }
     }
   },
   created() {

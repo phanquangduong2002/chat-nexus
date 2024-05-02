@@ -5,11 +5,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 export default defineComponent({
-  props: {
-    conversation: Object,
-    itemKey: String,
-    online: Boolean
-  },
+  props: {},
   setup(props) {}
 })
 </script>

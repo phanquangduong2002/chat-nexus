@@ -98,15 +98,15 @@ export const deleted = async (path, data = {}, config = {}) => {
   }
 }
 
-const refTokenUserStore = async () => {
+export const refTokenUserStore = async () => {
   try {
     const refToken = localDeRefreshUserStore()
     const res = await refreshToken({
       refresh_token: refToken
     })
     const { access_token, refresh_token } = res.data
-    localDeUserStore(access_token)
-    localDeRefreshUserStore(refresh_token)
+    localEnUserStore(access_token)
+    localEnRefreshUserStore(refresh_token)
     return access_token
   } catch (error) {
     console.error('Error refreshing access token:', error)

@@ -11,7 +11,7 @@ export default {
 
   REFRESH_TOKEN_API: {
     method: 'post',
-    url: 'auth/refresh'
+    url: '/auth/refresh'
   },
 
   // conversations

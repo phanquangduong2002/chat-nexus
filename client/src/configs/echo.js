@@ -21,6 +21,11 @@ const echoInstance = () => {
       headers: {
         Authorization: `Bearer ${gtka()}`
       }
+    },
+    http: {
+      connect: config => {
+        return connectServer(config)
+      }
     }
   })
 }
