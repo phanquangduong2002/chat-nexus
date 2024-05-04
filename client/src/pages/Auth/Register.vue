@@ -7,7 +7,7 @@
       }"
     >
       <div class="min-h-[100vh] w-full px-8 md:px-16 xl:px-24 flex items-center justify-center">
-        <div class="w-[100%] md:w-[80%] lg:w-[60%] xl:w-[40%]">
+        <div class="w-[100%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[40%]">
           <div class="form-container">
             <p class="title">Signup</p>
             <form class="form" @submit.prevent="register">
