@@ -7,7 +7,7 @@ window.Pusher = Pusher
 const echoInstance = () => {
   const token = gtka()
 
-  return new Echo({
+  const echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
@@ -21,13 +21,14 @@ const echoInstance = () => {
       headers: {
         Authorization: `Bearer ${gtka()}`
       }
-    },
-    http: {
-      connect: config => {
-        return connectServer(config)
-      }
     }
   })
+
+  echo.connector.pusher.connection.bind('error', payload => {
+    console.error('connection error', payload)
+  })
+
+  return echo
 }
 
 export const echo = echoInstance()

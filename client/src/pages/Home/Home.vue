@@ -18,6 +18,7 @@ export default defineComponent({
   components: { Sidebar, ConversationLayout },
   setup() {
     const homeStore = useHomeStore()
+
     return { homeStore }
   },
   watch: {},
@@ -27,20 +28,16 @@ export default defineComponent({
         .join('chat')
         .here(users => {
           const onlineUsersObj = Object.fromEntries(users.map(user => [user.id, user]))
-          this.onlineUsers = { ...this.onlineUsers, ...onlineUsersObj }
-          console.log('onlineUsers', this.onlineUsers)
+          this.homeStore.onlineUsers = { ...this.homeStore.onlineUsers, ...onlineUsersObj }
+          console.log('onlineUsers', this.homeStore.onlineUsers)
         })
         .joining(user => {
-          const updatedUsers = { ...this.onlineUsers }
-          updatedUsers[user.id] = user
-          console.log('updatedUsers', updatedUsers)
-          return updatedUsers
+          this.homeStore.onlineUsers[user.id] = user
+          console.log('updatedUsers', this.homeStore.onlineUsers)
         })
         .leaving(user => {
-          const updatedUsers = { ...this.onlineUsers }
-          delete updatedUsers[user.id]
-          console.log('updatedUsers', updatedUsers)
-          return updatedUsers
+          delete this.homeStore.onlineUsers[user.id]
+          console.log('updatedUsers', this.homeStore.onlineUsers)
         })
     },
     disconnectWs() {

@@ -14,6 +14,11 @@ export default {
     url: '/auth/refresh'
   },
 
+  CHECK_TOKEN_EXPIRATION_API: {
+    method: 'get',
+    url: '/auth/check-token-expiration'
+  },
+
   // conversations
   GET_CONVERSATIONS_API: {
     method: 'get',

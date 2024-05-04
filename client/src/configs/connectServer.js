@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { TIMEOUT, KEY_USER_STORAGE, REFRESH_KEY_USER_STORAGE } from './constantTypes'
+import { TIMEOUT, KEY_USER_STORAGE, REFRESH_KEY_USER_STORAGE, USER_STORAGE } from './constantTypes'
 
 import { refreshToken } from '../webServices/authorizationService'
 
@@ -25,24 +25,23 @@ const connectServer = config => {
     },
     async error => {
       const originalRequest = error.config
-      if (error.response.status === 401 && !originalRequest._retry) {
+      if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true
-        try {
-          const access_token = await refTokenUserStore()
-          originalRequest.headers.Authorization = `Bearer ${access_token}`
 
+        const access_token = await refTokenUserStore()
+
+        if (!access_token) {
+          removeUserStore()
+          removeRefreshUserStore()
+          removeUserObjStore()
+          window.location.href = '/auth/login'
+        } else {
+          originalRequest.headers.Authorization = `Bearer ${access_token}`
           return api(originalRequest)
-        } catch (error) {
-          console.error('Error refreshing access token:', error)
-          if (error.response && error.response.status === 401 && error.response.data) {
-            removeUserStore()
-            removeRefreshUserStore()
-            window.location.href = '/login'
-          }
-          return Promise.reject(error)
         }
+      } else {
+        return Promise.reject(error)
       }
-      return Promise.reject(error)
     }
   )
 
@@ -109,8 +108,8 @@ export const refTokenUserStore = async () => {
     localEnRefreshUserStore(refresh_token)
     return access_token
   } catch (error) {
-    console.error('Error refreshing access token:', error)
-    throw error
+    console.log('Error refreshing access token:', error)
+    return null
   }
 }
 
@@ -120,6 +119,10 @@ export const removeUserStore = str => {
 
 export const removeRefreshUserStore = str => {
   localStorage.removeItem(REFRESH_KEY_USER_STORAGE)
+}
+
+export const removeUserObjStore = obj => {
+  localStorage.removeItem(USER_STORAGE)
 }
 
 export const localEnUserStore = str => {
@@ -132,6 +135,24 @@ export const localEnRefreshUserStore = str => {
   localStorage.setItem(REFRESH_KEY_USER_STORAGE, JSON.stringify(str))
 }
 
+export const localUserObjStore = obj => {
+  if (!obj) return
+  localStorage.setItem(USER_STORAGE, JSON.stringify(obj))
+}
+
+export const localDeUserObjStore = obj => {
+  if (!obj) {
+    obj = localStorage.getItem(USER_STORAGE)
+  }
+  if (!obj) return null
+  try {
+    return JSON.parse(obj)
+  } catch (error) {
+    console.log('error string localDeUserStore', error)
+    return null
+  }
+}
+
 export const localDeUserStore = str => {
   if (!str) {
     str = localStorage.getItem(KEY_USER_STORAGE)
@@ -140,7 +161,6 @@ export const localDeUserStore = str => {
   try {
     return JSON.parse(str)
   } catch (error) {
-    console.log('error string localDeUserStore', error)
     return null
   }
 }
@@ -153,7 +173,6 @@ export const localDeRefreshUserStore = str => {
   try {
     return JSON.parse(str)
   } catch (error) {
-    console.log('error string localDeUserStore', error)
     return null
   }
 }

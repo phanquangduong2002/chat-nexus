@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '../stores/modules/userStore'
-import { gtka } from '../configs/connectServer'
+import { gtka, localDeUserObjStore } from '../configs/connectServer'
+import { checkTokenExpiration } from '../webServices/authorizationService'
 
 const routes = [
   {
@@ -33,14 +34,18 @@ const router = createRouter({
   routes: routes
 })
 
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-  const user = userStore.user
+router.beforeEach(async (to, from, next) => {
+  const user = localDeUserObjStore()
   const token = gtka()
 
-  if (to?.meta.isAuthenticated) {
+  if (to.meta.isAuthenticated) {
     if (user && token) {
-      next()
+      const tokenIsValid = await checkTokenExpiration()
+      if (tokenIsValid) {
+        next()
+      } else {
+        next('/auth/login')
+      }
     } else {
       next('/auth/login')
     }

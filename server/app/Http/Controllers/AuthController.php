@@ -78,6 +78,16 @@ class AuthController extends Controller
         }
     }
 
+    public function checkTokenExpiration()
+    {
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Token is valid'
+        ], 200);
+    }
+
+
     public function refresh()
     {
         $refreshToken = request()->refresh_token;
@@ -88,7 +98,7 @@ class AuthController extends Controller
 
             if (!$user) return response()->json(['success' => false, 'error' => 'User not found', 404]);
 
-            // Auth::invalidate();
+            // auth()->invalidate();
 
             $token = Auth::login($user);
             $refreshToken = $this->createRefreshToken();
