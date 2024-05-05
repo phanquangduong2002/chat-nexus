@@ -5,13 +5,15 @@ export default {
     extend: {
       colors: {
         primary: 'rgba(167, 139, 250, 1)',
-        secondary: 'rgb(107, 138, 253)'
+        secondary: 'rgb(107, 138, 253)',
+        textColor: 'rgb(156, 163, 175)'
       },
       backgroundColor: {
         themePrimary: 'rgb(19, 19, 19)',
         themeSecondary: 'rgb(32, 35, 41)',
         primary: 'rgba(167, 139, 250, 1)',
-        secondary: 'rgb(46, 51, 61)'
+        secondary: 'rgb(46, 51, 61)',
+        tertiary: 'rgb(107, 138, 253)'
       }
     }
   },

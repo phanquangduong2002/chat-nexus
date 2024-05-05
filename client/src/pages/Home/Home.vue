@@ -1,7 +1,10 @@
 <template>
-  <div class="flex items-start justify-start">
-    <Sidebar />
-    <ConversationLayout />
+  <div class="min-h-[100vh] min-w-[100vw] flex items-center justify-center">
+    <LoaderV1 v-if="loading" />
+    <div class="w-full h-full flex items-start justify-start" v-if="!loading">
+      <Sidebar />
+      <ConversationLayout />
+    </div>
   </div>
 </template>
 
@@ -10,16 +13,20 @@ import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import ConversationLayout from '@/components/Conversation/ConversationLayout.vue'
+import LoaderV1 from '@/components/Loader/LoaderV1.vue'
+
 import { echo } from '../../configs/echo'
 import { getConversations } from '../../webServices/conversationService'
 import { useHomeStore } from '../../stores/modules/homeStore'
 
 export default defineComponent({
-  components: { Sidebar, ConversationLayout },
+  components: { Sidebar, ConversationLayout, LoaderV1 },
   setup() {
     const homeStore = useHomeStore()
 
-    return { homeStore }
+    const loading = ref(false)
+
+    return { homeStore, loading }
   },
   watch: {},
   methods: {
@@ -44,6 +51,7 @@ export default defineComponent({
       echo.leave('chat')
     },
     async loadData() {
+      this.loading = true
       const data = await getConversations()
       console.log('conversations', data.conversations)
       if (data.success) {
@@ -51,6 +59,7 @@ export default defineComponent({
         this.homeStore.updateLocalConversations(data.conversations)
         this.homeStore.updateSortedConversations(data.conversations)
       }
+      this.loading = false
     }
   },
   created() {

@@ -40,6 +40,9 @@ export const useHomeStore = defineStore(HOME_STORE, {
     },
     isUserOnline(userId) {
       return this.onlineUsers[userId]
+    },
+    handleSelectedConversation(conversation) {
+      this.selectedConversation = conversation
     }
   }
 })

@@ -1,9 +1,21 @@
 <template>
-  <div>Error</div>
+  <div class="min-h-[100vh] min-w-[100vw] flex items-center justify-center">
+    <LoaderV1 />
+  </div>
 </template>
 
 <script>
-export default {}
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import LoaderV1 from '@/components/Loader/LoaderV1.vue'
+export default defineComponent({
+  components: { LoaderV1 },
+  setup() {},
+  created() {
+    const router = useRouter()
+    router.push('/')
+  }
+})
 </script>
 
 <style></style>
