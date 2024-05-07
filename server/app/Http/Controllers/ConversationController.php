@@ -18,4 +18,12 @@ class ConversationController extends Controller
 
         return response()->json(['success' => true, 'conversations' => $conversations], 200);
     }
+
+    public function changeUserRole()
+    {
+    }
+
+    public function blockUser()
+    {
+    }
 }

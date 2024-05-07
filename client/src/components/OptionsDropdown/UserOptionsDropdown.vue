@@ -17,10 +17,10 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
-        <MenuItems class="absolute -right-1 top-1 mt-4 py-1 w-[140px] flex flex-col bg-gray-900 rounded-lg focus:outline-none">
-          <div class="px-1">
+        <MenuItems class="absolute -right-1 top-1 z-[50] mt-4 py-[6px] w-[140px] flex flex-col bg-gray-900 rounded-lg focus:outline-none">
+          <div class="px-[6px]">
             <MenuItem>
-              <button class="group w-full rounded-md px-2 py-2 text-sm text-white hover:bg-black/40">
+              <button @click="onBlockUser" class="group w-full rounded-md px-2 py-2 text-sm text-white hover:bg-black/40">
                 <div v-if="conversation?.blocked_at" class="flex items-center gap-3">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4 fill-current">
                     <path
@@ -44,12 +44,11 @@
               </button>
             </MenuItem>
           </div>
-          <div class="px-1 py-1">
+          <div class="px-[6px]">
             <MenuItem>
-              <button class="group w-full rounded-md px-2 py-2 text-sm text-white hover:bg-black/40">
+              <button @click="onChangeUserRole" class="group w-full rounded-md px-2 py-2 text-sm text-white hover:bg-black/40">
                 <div v-if="!conversation?.is_admin" class="flex items-center gap-3">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" class="w-4 h-4 fill-current">
-                    <title>shield-check-solid</title>
                     <path
                       d="M31.25,7.4a43.79,43.79,0,0,1-6.62-2.35,45,45,0,0,1-6.08-3.21L18,1.5l-.54.35a45,45,0,0,1-6.08,3.21A43.79,43.79,0,0,1,4.75,7.4L4,7.59v8.34c0,13.39,13.53,18.4,13.66,18.45l.34.12.34-.12c.14,0,13.66-5.05,13.66-18.45V7.59Zm-4.57,6.65L15.51,24.9,9.19,18.57a1.4,1.4,0,0,1,2-2L15.54,21,24.73,12a1.4,1.4,0,1,1,2,2Z"
                     />
@@ -77,10 +76,25 @@
 import { defineComponent } from 'vue'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
+import { blockUser, changeUserRole } from '../../webServices/conversationService'
+
 export default defineComponent({
   components: { Menu, MenuButton, MenuItems, MenuItem },
   props: {
     conversation: Object
+  },
+  setup() {},
+  methods: {
+    async onBlockUser() {
+      if (!this.conversation.is_user) return
+
+      const res = await blockUser({ conversation_id: conversation.id })
+    },
+    async onChangeUserRole() {
+      if (!this.conversation.is_group) return
+
+      const res = await changeRole({ conversation_id: conversation.id })
+    }
   }
 })
 </script>

@@ -22,14 +22,14 @@ Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::post('/profile', [AuthController::class, 'profile']);
-    Route::get('/check-token-expiration', [AuthController::class, 'checkTokenExpiration']);
+    Route::get('/checkTokenExpiration', [AuthController::class, 'checkTokenExpiration']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/send-verify-mail/{email}', [AuthController::class, 'sendVerifyMail']);
-    Route::post('/forget-password', [AuthController::class, 'forgetPassword']);
 });
 
 Broadcast::routes(['middleware' => 'api']);
 
 Route::group(['prefix' => 'conversation', 'middleware' => 'api'], function () {
     Route::get('/', [ConversationController::class, 'getConversations']);
+    Route::post('/changeUserRole', [ConversationController::class, 'changeUserRole']);
+    Route::post('/blockUser', [ConversationController::class, 'blockUser']);
 });

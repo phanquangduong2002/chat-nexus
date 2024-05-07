@@ -16,12 +16,20 @@ export default {
 
   CHECK_TOKEN_EXPIRATION_API: {
     method: 'get',
-    url: '/auth/check-token-expiration'
+    url: '/auth/checkTokenExpiration'
   },
 
   // conversations
   GET_CONVERSATIONS_API: {
     method: 'get',
     url: '/conversation'
+  },
+  CHANGE_USER_ROLE_API: {
+    method: 'post',
+    url: '/conversation/changeUserRole'
+  },
+  BLOCK_USER_API: {
+    method: 'post',
+    url: '/conversation/blockUser'
   }
 }
