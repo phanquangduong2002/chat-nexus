@@ -38,6 +38,12 @@ export default defineComponent({
       isOpen,
       toggleOpen
     }
+  },
+  methods: {
+    async loadData() {}
+  },
+  created() {
+    this.loadData()
   }
 })
 </script>
