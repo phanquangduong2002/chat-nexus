@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.21",
     "axios": "^1.6.8",
     "daisyui": "^4.10.2",
     "laravel-echo": "^1.16.1",

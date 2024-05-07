@@ -1,5 +1,8 @@
 <template>
-  <div class="w-full sm:w-[220px] md:w-[320px] 2xl:w-[360px] max-h-[100vh] px-2 py-6 flex flex-col overflow-hidden" :class="false ? '-ml-[100%] sm:ml-0' : ''">
+  <div
+    class="w-full sm:w-[220px] md:w-[300px] 2xl:w-[360px] h-[100vh] px-2 py-6 bg-themeSecondary flex flex-col rounded-l-2xl overflow-hidden"
+    :class="false ? '-ml-[100%] sm:ml-0' : ''"
+  >
     <Input :onSearch="onSearch" />
     <div class="mt-4 flex flex-col gap-2 overflow-y-auto custom-scrollbar">
       <div v-for="(conversation, i) in homeStore.sortedConversations" :key="i" class="px-1">

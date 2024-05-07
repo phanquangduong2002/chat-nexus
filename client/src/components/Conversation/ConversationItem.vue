@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-3 flex items-start justify-start text-xs cursor-pointer rounded-2xl hover:bg-secondary"
+    class="p-3 flex items-start justify-start text-xs cursor-pointer rounded-2xl group hover:bg-secondary"
     :class="{
       'bg-secondary':
         homeStore.selectedConversation?.id === conversation.id &&
@@ -19,9 +19,10 @@
       </div>
     </div>
     <div class="ml-3 flex-1 flex flex-col items-start justify-start">
-      <div class="w-full mb-2 flex items-center justify-between">
+      <div class="w-full relative mb-3 flex items-center justify-between">
         <div class="max-w-[70%] line-clamp-1 text-sm">{{ conversation.name }}</div>
-        <div class="ml-2 text-textColor">9:31 am</div>
+        <div class="ml-2 text-textColor block group-hover:hidden">9:31 am</div>
+        <UserOptionsDropdown class="hidden group-hover:block" @click.stop="handleDropdownClick" />
       </div>
       <div class="w-full flex items-center justify-between">
         <p class="max-w-[80%] line-clamp-1 text-textColor">{{ conversation.last_message }}</p>
@@ -34,7 +35,10 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useHomeStore } from '../../stores/modules/homeStore'
+import UserOptionsDropdown from '@/components/OptionsDropdown/UserOptionsDropdown.vue'
+
 export default defineComponent({
+  components: { UserOptionsDropdown },
   props: {
     conversation: Object,
     itemKey: String,
@@ -42,7 +46,11 @@ export default defineComponent({
   },
   setup() {
     const homeStore = useHomeStore()
-    return { homeStore }
+
+    const handleDropdownClick = event => {
+      event.stopPropagation()
+    }
+    return { homeStore, handleDropdownClick }
   },
   methods: {}
 })
