@@ -32,7 +32,7 @@ export default defineComponent({
   methods: {
     connectWs() {
       echo
-        .join('chat')
+        .join('online')
         .here(users => {
           const onlineUsersObj = Object.fromEntries(users.map(user => [user.id, user]))
           this.homeStore.onlineUsers = { ...this.homeStore.onlineUsers, ...onlineUsersObj }

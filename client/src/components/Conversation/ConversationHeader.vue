@@ -3,8 +3,8 @@
     <div class="flex items-center justify-between">
       <div>
         <h5 class="text-lg font-bold line-clamp-1">{{ conversation?.name }}</h5>
-        <p class="text-textColor text-sm" v-if="isOnline">online</p>
-        <p class="text-textColor text-sm" v-if="!isOnline">offline</p>
+        <p class="text-textColor text-sm" v-if="conversation.is_user">{{ isOnline ? 'online' : 'offline' }}</p>
+        <p class="text-textColor text-sm" v-if="conversation.is_group">{{ conversation?.user_ids.length }} members, {{ countUserOnline }} online</p>
       </div>
       <div class="flex items-center justify-center gap-8">
         <button class="text-textColor hover:text-white">
@@ -54,15 +54,27 @@ export default defineComponent({
   },
   setup(props) {
     const homeStore = useHomeStore()
+
     const isOnline = ref(false)
+    const countUserOnline = ref(0)
 
     watchEffect(() => {
-      isOnline.value = !!homeStore.isUserOnline(props.conversation.id)
+      if (props.conversation.is_user) {
+        isOnline.value = !!homeStore.isUserOnline(props.conversation.id)
+      } else {
+        const userOnlineCount = props.conversation.user_ids.reduce((count, userId) => {
+          if (homeStore.isUserOnline(userId)) {
+            count++
+          }
+          return count
+        }, 0)
+        countUserOnline.value = userOnlineCount
+      }
     })
 
-    return { isOnline }
+    return { isOnline, countUserOnline }
   }
 })
 </script>
 
-<style scoped></style>
+<style></style>

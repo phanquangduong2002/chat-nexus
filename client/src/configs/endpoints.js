@@ -32,4 +32,6 @@ export default {
     method: 'post',
     url: '/conversation/blockUser'
   }
+
+  //message
 }
