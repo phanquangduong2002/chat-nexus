@@ -14,8 +14,8 @@
         'after:absolute after:content after:w-[22.5%] after:h-[22.5%] after:bottom-[5%] after:right-[5%] after:bg-green-500 after:rounded-full': online
       }"
     >
-      <div class="w-14 rounded-full">
-        <img src="../../assets/images/avatar.jpg" />
+      <div class="w-14 sm:w-10 md:w-14 rounded-full">
+        <img src="../../assets/images/avatar.jpg" alt="Avatar" />
       </div>
     </div>
     <div class="ml-3 flex-1 flex flex-col items-start justify-start">

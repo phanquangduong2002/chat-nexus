@@ -1,10 +1,24 @@
 <template>
   <div>
-    <div class="flex items-center justify-between">
-      <div>
-        <h5 class="text-lg font-bold line-clamp-1">{{ conversation?.name }}</h5>
-        <p class="text-textColor text-sm" v-if="conversation.is_user">{{ isOnline ? 'online' : 'offline' }}</p>
-        <p class="text-textColor text-sm" v-if="conversation.is_group">{{ conversation?.user_ids.length }} members, {{ countUserOnline }} online</p>
+    <div class="bg-themeSecondary px-8 pt-6 flex items-center justify-between absolute top-0 left-0 right-0 z-[9999]">
+      <div class="flex items-center justify-center gap-3">
+        <div
+          class="avatar relative"
+          :class="{
+            'after:absolute after:content after:w-[22.5%] after:h-[22.5%] after:bottom-[5%] after:right-[5%] after:bg-green-500 after:rounded-full':
+              (conversation.is_user && isOnline) || (conversation.is_group && countUserOnline > 0)
+          }"
+        >
+          <div class="w-14 rounded-full">
+            <img src="../../assets/images/avatar.jpg" alt="Avatar" />
+          </div>
+        </div>
+
+        <div>
+          <h5 class="text-lg font-bold line-clamp-1">{{ conversation?.name }}</h5>
+          <p class="text-textColor text-sm" v-if="conversation.is_user">{{ isOnline ? 'online' : 'offline' }}</p>
+          <p class="text-textColor text-sm" v-if="conversation.is_group">{{ conversation?.user_ids.length }} members, {{ countUserOnline }} online</p>
+        </div>
       </div>
       <div class="flex items-center justify-center gap-8">
         <button class="text-textColor hover:text-white">

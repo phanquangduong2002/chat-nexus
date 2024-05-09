@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full sm:w-[220px] md:w-[300px] 2xl:w-[360px] h-[100vh] px-2 py-6 bg-themeSecondary flex flex-col rounded-l-2xl overflow-hidden"
+    class="w-full sm:w-[300px] md:w-[320px] 2xl:w-[400px] h-[100vh] px-2 py-6 bg-themeSecondary flex flex-col rounded-l-2xl overflow-hidden"
     :class="false ? '-ml-[100%] sm:ml-0' : ''"
   >
     <Input :onSearch="onSearch" />
