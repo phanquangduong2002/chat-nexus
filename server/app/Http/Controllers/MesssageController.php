@@ -39,7 +39,7 @@ class MesssageController extends Controller
         ], 200);
     }
 
-    public function gyBroup(Group $group)
+    public function byGroup(Group $group)
     {
         $messages = Message::where('group_id', $group->id)
             ->latest()
@@ -48,7 +48,7 @@ class MesssageController extends Controller
         return response()->json([
             'success' => true,
             'selectedConversation' => $group->toConversationArray(),
-            'message' => MessageResource::collection($messages)
+            'messages' => MessageResource::collection($messages)
         ], 200);
     }
 

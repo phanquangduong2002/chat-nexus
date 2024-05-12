@@ -1,5 +1,5 @@
 <template>
-  <ul class="hidden sm:flex px-3 pt-6 pb-4 h-[100vh] flex-col items-center gap-6 text-textColor overflow-auto">
+  <ul class="hidden md:flex px-3 pt-6 pb-4 h-[100vh] flex-col items-center gap-6 text-textColor overflow-auto">
     <li class="pb-3"><span class="text-3xl font-bold">CN</span></li>
     <li class="flex flex-col items-center justify-center gap-2 text-xs cursor-pointer hover:text-white">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-[22px] h-[22px] fill-none">

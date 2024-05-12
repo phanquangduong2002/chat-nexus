@@ -9,7 +9,7 @@
               (conversation.is_user && isOnline) || (conversation.is_group && countUserOnline > 0)
           }"
         >
-          <div class="w-14 rounded-full">
+          <div class="w-12 rounded-full">
             <img src="../../assets/images/avatar.jpg" alt="Avatar" />
           </div>
         </div>

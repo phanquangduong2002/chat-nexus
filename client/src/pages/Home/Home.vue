@@ -10,7 +10,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
+
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import ConversationLayout from '@/components/Conversation/ConversationLayout.vue'
 import LoaderV1 from '@/components/Loader/LoaderV1.vue'

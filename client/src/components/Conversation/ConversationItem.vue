@@ -14,12 +14,12 @@
         'after:absolute after:content after:w-[22.5%] after:h-[22.5%] after:bottom-[5%] after:right-[5%] after:bg-green-500 after:rounded-full': online
       }"
     >
-      <div class="w-14 sm:w-10 md:w-14 rounded-full">
+      <div class="w-12 sm:w-8 md:w-12 rounded-full">
         <img src="../../assets/images/avatar.jpg" alt="Avatar" />
       </div>
     </div>
     <div class="ml-3 flex-1 flex flex-col items-start justify-start">
-      <div class="w-full relative mb-3 flex items-center justify-between">
+      <div class="w-full relative mb-2 flex items-center justify-between">
         <div class="max-w-[70%] line-clamp-1 text-sm">{{ conversation.name }}</div>
         <div class="ml-2 text-textColor block group-hover:hidden">9:31 am</div>
         <UserOptionsDropdown :conversation="conversation" class="hidden group-hover:block" @click.stop="handleDropdownClick" />

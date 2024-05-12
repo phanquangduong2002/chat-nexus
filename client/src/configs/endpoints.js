@@ -31,7 +31,15 @@ export default {
   BLOCK_USER_API: {
     method: 'post',
     url: '/conversation/blockUser'
-  }
+  },
 
   //message
+  GET_MESSAGE_BY_USER_API: {
+    method: 'get',
+    url: '/message/user'
+  },
+  GET_MESSAGE_BY_GROUP_API: {
+    method: 'get',
+    url: '/message/group'
+  }
 }
