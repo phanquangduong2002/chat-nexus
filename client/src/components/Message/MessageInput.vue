@@ -15,6 +15,14 @@
         ref="textInput"
       ></textarea>
       <button class="mb-1 px-1 text-textColor hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" class="w-4 h-4">
+          <path
+            d="M8.5 0c-4.687 0-8.5 3.813-8.5 8.5s3.813 8.5 8.5 8.5 8.5-3.813 8.5-8.5-3.813-8.5-8.5-8.5zM8.5 16c-4.136 0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5-3.364 7.5-7.5 7.5zM13 9c0 2.481-2.019 4.5-4.5 4.5s-4.5-2.019-4.5-4.5c0-0.276 0.224-0.5 0.5-0.5s0.5 0.224 0.5 0.5c0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5c0-0.276 0.224-0.5 0.5-0.5s0.5 0.224 0.5 0.5zM4.5 5.5c0-0.552 0.448-1 1-1s1 0.448 1 1-0.448 1-1 1-1-0.448-1-1zM10.5 5.5c0-0.552 0.448-1 1-1s1 0.448 1 1-0.448 1-1 1-1-0.448-1-1z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+      <button class="mb-1 px-1 text-textColor hover:text-white">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1920" class="w-4 h-4 fill-current">
           <path
             d="M425.818 709.983V943.41c0 293.551 238.946 532.497 532.497 532.497 293.55 0 532.496-238.946 532.496-532.497V709.983h96.818V943.41c0 330.707-256.438 602.668-580.9 627.471l-.006 252.301h242.044V1920H667.862v-96.818h242.043l-.004-252.3C585.438 1546.077 329 1274.116 329 943.41V709.983h96.818ZM958.315 0c240.204 0 435.679 195.475 435.679 435.68v484.087c0 240.205-195.475 435.68-435.68 435.68-240.204 0-435.679-195.475-435.679-435.68V435.68C522.635 195.475 718.11 0 958.315 0Z"
@@ -23,13 +31,10 @@
         </svg>
       </button>
       <button class="mb-1 px-1 text-textColor hover:text-white" @click="triggerPhotoInput">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 fill-none">
-          <g>
-            <path
-              d="M0,0v512h512V0H0z M163.15,120.064c28.778,0,52.101,23.331,52.101,52.11s-23.323,52.11-52.101,52.11   c-28.777,0-52.109-23.331-52.109-52.11S134.372,120.064,163.15,120.064z M454.417,386.525c-1.789,3.325-5.267,5.411-9.05,5.411   H66.633c-3.774,0-7.244-2.067-9.041-5.392c-1.798-3.326-1.627-7.37,0.449-10.525l66.248-100.939   c4.394-6.695,11.657-10.965,19.646-11.531c8-0.566,15.792,2.625,21.094,8.637l45.693,51.786l82.793-125.996   c4.745-7.217,12.807-11.576,21.444-11.585c8.637-0.009,16.708,4.332,21.463,11.54L453.95,375.992   C456.034,379.156,456.215,383.2,454.417,386.525z"
-              fill="currentColor"
-            />
-          </g>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-4 h-4 fill-current">
+          <path
+            d="M0 26.016q0 2.496 1.76 4.224t4.256 1.76h20q2.464 0 4.224-1.76t1.76-4.224v-20q0-2.496-1.76-4.256t-4.224-1.76h-20q-2.496 0-4.256 1.76t-1.76 4.256v20zM4 26.016v-20q0-0.832 0.576-1.408t1.44-0.608h20q0.8 0 1.408 0.608t0.576 1.408v20q0 0.832-0.576 1.408t-1.408 0.576h-20q-0.832 0-1.44-0.576t-0.576-1.408zM6.016 24q0 0.832 0.576 1.44t1.408 0.576h16q0.832 0 1.408-0.576t0.608-1.44v-0.928q-0.224-0.448-1.12-2.688t-1.6-3.584-1.28-2.112q-0.544-0.576-1.12-0.608t-1.152 0.384-1.152 1.12-1.184 1.568-1.152 1.696-1.152 1.6-1.088 1.184-1.088 0.448q-0.576 0-1.664-1.44-0.16-0.192-0.48-0.608-1.12-1.504-1.6-1.824-0.768-0.512-1.184 0.352-0.224 0.512-0.928 2.24t-1.056 2.56v0.64zM6.016 9.024q0 1.248 0.864 2.112t2.112 0.864 2.144-0.864 0.864-2.112-0.864-2.144-2.144-0.864-2.112 0.864-0.864 2.144z"
+          />
         </svg>
       </button>
       <input type="file" accept="image/*" class="hidden" ref="photoInput" @change="handlePhotoChange" />
@@ -41,7 +46,7 @@
         </svg>
       </button>
       <input type="file" multiple class="hidden" ref="fileInput" @change="handleFileChange" />
-      <button class="mb-1 ml-3 px-1 text-white hover:scale-[1.15]">
+      <button class="mb-1 ml-3 px-1 text-white hover:scale-[1.15]" @click="onSend">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-4 h-4 fill-current">
           <path
             d="M15.6,24.9c-0.5-0.2-0.7-0.8-0.5-1.3c0.2-0.5,0.8-0.7,1.3-0.5l6.1,2.6l1.9,0.8c0.2,0.1,0.5,0.2,0.8,0.2c0.4,0,0.7-0.1,1-0.3  c0.5-0.3,0.9-0.9,1-1.5l1.7-20.8c0.1-0.7-0.3-1.4-0.9-1.8c-0.6-0.4-1.4-0.4-2-0.1L3.4,14.1c-0.7,0.4-1.1,1.1-1,1.9  c0,0.8,0.5,1.4,1.2,1.7l8.4,3.5v6c0,0.8,0.5,1.6,1.3,1.9c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.1-0.2,1.5-0.7l2.4-2.8L15.6,24.9z"
@@ -54,6 +59,7 @@
 
 <script>
 import { defineComponent, ref, watchEffect, watch } from 'vue'
+import { createMessage } from '../../webServices/messageService'
 export default defineComponent({
   props: {
     conversation: Object
@@ -78,15 +84,30 @@ export default defineComponent({
       }
     }
 
-    const submitMessage = () => {
+    const onSend = async () => {
       console.log('Message submitted:', newMessage.value)
+      if (newMessage.value.trim() === '') return
+
+      const formData = new FormData()
+      formData.append('message', newMessage.value)
+      if (props.conversation.is_user) {
+        formData.append('receiver_id', props.conversation.id)
+      } else if (props.conversation.is_group) {
+        formData.append('group_id', props.conversation.id)
+      }
+
+      messageSending.value = true
+
+      const res = await createMessage(newMessage.value)
+
+      console.log(res)
       newMessage.value = ''
     }
 
     const handleTextareaKeyPress = e => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault()
-        submitMessage()
+        onSend()
       }
     }
 
@@ -121,7 +142,8 @@ export default defineComponent({
       triggerFileInput,
       handleFileChange,
       triggerPhotoInput,
-      handlePhotoChange
+      handlePhotoChange,
+      onSend
     }
   },
   watch: {

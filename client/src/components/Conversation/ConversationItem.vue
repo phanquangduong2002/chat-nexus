@@ -14,7 +14,7 @@
         'after:absolute after:content after:w-[22.5%] after:h-[22.5%] after:bottom-[5%] after:right-[5%] after:bg-green-500 after:rounded-full': online
       }"
     >
-      <div class="w-12 sm:w-8 md:w-12 rounded-full">
+      <div class="w-12 rounded-full">
         <img src="../../assets/images/avatar.jpg" alt="Avatar" />
       </div>
     </div>

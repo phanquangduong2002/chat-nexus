@@ -41,5 +41,9 @@ export default {
   GET_MESSAGE_BY_GROUP_API: {
     method: 'get',
     url: '/message/group'
+  },
+  CREATE_MESSAGE_API: {
+    method: 'post',
+    url: '/message'
   }
 }

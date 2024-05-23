@@ -11,4 +11,8 @@ export const getMessageByGroup = async dataPost => {
   return connectServer[api.GET_MESSAGE_BY_GROUP_API.method](api.GET_MESSAGE_BY_GROUP_API.url + '/' + id)
 }
 
-export default { getMessageByUser, getMessageByGroup }
+export const createMessage = async dataPost => {
+  return connectServer[api.CREATE_MESSAGE_API.method](api.CREATE_MESSAGE_API.url, dataPost)
+}
+
+export default { getMessageByUser, getMessageByGroup, createMessage }

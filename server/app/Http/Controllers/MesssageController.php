@@ -79,52 +79,56 @@ class MesssageController extends Controller
 
     public function store(StoreMessageRequest $request)
     {
-        $data = $request->validated();
-        $data['sender_id'] = Auth::id();
-        $receiverId = $data['receiver_id'] ?? null;
-        $groupId = $data['group_id'] ?? null;
-
-        $files = $data['attachments'] ?? [];
-
-        $message = Message::create($data);
-
-        $attachments = [];
-
-        if ($files) {
-
-            foreach ($files as $file) {
-                $directory = 'attachments/' . Str::random(32);
-                Storage::makeDirectory($directory);
-
-                $model = [
-                    'message_id' => $message->id,
-                    'name' => $file->getClientOriginalName(),
-                    'mime' => $file->getClientMimeType(),
-                    'size' => $file->getSize(),
-                    'path' => $file->store($directory, 'public'),
-                ];
-
-                $attachment = MessageAttachment::create($model);
-                $attachments[] = $attachment;
-            };
-
-            $message->attachments = $attachments;
-        }
-
-        if ($receiverId) {
-            Conversation::updateConversationWithMessage($receiverId, Auth::id(), $message);
-        }
-
-        if ($groupId) {
-            Group::updateGroupWithMessage($groupId, $message);
-        }
-
-        SocketMessage::dispatch($message);
 
         return response()->json([
             'success' => true,
-            'message' => new MessageResource($message)
         ], 200);
+        // $data = $request->validated();
+        // $data['sender_id'] = Auth::id();
+        // $receiverId = $data['receiver_id'] ?? null;
+        // $groupId = $data['group_id'] ?? null;
+
+        // $files = $data['attachments'] ?? [];
+
+        // $message = Message::create($data);
+
+        // $attachments = [];
+
+        // if ($files) {
+
+        //     foreach ($files as $file) {
+        //         $directory = 'attachments/' . Str::random(32);
+        //         Storage::makeDirectory($directory);
+
+        //         $model = [
+        //             'message_id' => $message->id,
+        //             'name' => $file->getClientOriginalName(),
+        //             'mime' => $file->getClientMimeType(),
+        //             'size' => $file->getSize(),
+        //             'path' => $file->store($directory, 'public'),
+        //         ];
+
+        //         $attachment = MessageAttachment::create($model);
+        //         $attachments[] = $attachment;
+        //     };
+
+        //     $message->attachments = $attachments;
+        // }
+
+        // if ($receiverId) {
+        //     Conversation::updateConversationWithMessage($receiverId, Auth::id(), $message);
+        // }
+
+        // if ($groupId) {
+        //     Group::updateGroupWithMessage($groupId, $message);
+        // }
+
+        // SocketMessage::dispatch($message);
+
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => new MessageResource($message)
+        // ], 200);
     }
 
     public function destroy(Message $message)
