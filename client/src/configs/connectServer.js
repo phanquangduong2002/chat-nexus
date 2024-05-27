@@ -1,8 +1,7 @@
 import axios from 'axios'
-
 import { TIMEOUT, KEY_USER_STORAGE, REFRESH_KEY_USER_STORAGE, USER_STORAGE } from './constantTypes'
-
 import { refreshToken } from '../webServices/authorizationService'
+import { useUserStore } from '../stores/modules/userStore'
 
 const connectServer = config => {
   let headersDefault = {
@@ -31,9 +30,8 @@ const connectServer = config => {
         const access_token = await refTokenUserStore()
 
         if (!access_token) {
-          removeUserStore()
-          removeRefreshUserStore()
-          removeUserObjStore()
+          const userStore = useUserStore()
+          userStore.logout()
           window.location.href = '/auth/login'
         } else {
           originalRequest.headers.Authorization = `Bearer ${access_token}`

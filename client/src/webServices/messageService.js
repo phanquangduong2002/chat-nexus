@@ -12,7 +12,10 @@ export const getMessageByGroup = async dataPost => {
 }
 
 export const createMessage = async dataPost => {
-  return connectServer[api.CREATE_MESSAGE_API.method](api.CREATE_MESSAGE_API.url, dataPost)
+  const config = {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }
+  return connectServer[api.CREATE_MESSAGE_API.method](api.CREATE_MESSAGE_API.url, dataPost, config)
 }
 
 export default { getMessageByUser, getMessageByGroup, createMessage }

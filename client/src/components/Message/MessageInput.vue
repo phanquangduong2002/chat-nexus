@@ -7,7 +7,7 @@
         </div>
       </div>
       <textarea
-        class="flex-1 h-6 pt-1 px-2 text-sm max-h-[360px] resize-none bg-transparent border-none outline-none focus:border-none focus:outline-none"
+        class="flex-1 h-6 pt-1 px-1 text-sm max-h-[360px] resize-none bg-transparent border-none outline-none focus:border-none focus:outline-none"
         placeholder="Your message..."
         rows="1"
         v-model="newMessage"
@@ -46,7 +46,10 @@
         </svg>
       </button>
       <input type="file" multiple class="hidden" ref="fileInput" @change="handleFileChange" />
-      <button class="mb-1 ml-3 px-1 text-white hover:scale-[1.15]" @click="onSend">
+      <div v-if="messageSending" class="mb-1 ml-3 px-1 flex items-center justify-center">
+        <span class="loading loading-spinner loading-xs"></span>
+      </div>
+      <button v-if="!messageSending" class="mb-1 ml-3 px-1 text-white hover:scale-[1.15]" @click.prevent="onSend">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-4 h-4 fill-current">
           <path
             d="M15.6,24.9c-0.5-0.2-0.7-0.8-0.5-1.3c0.2-0.5,0.8-0.7,1.3-0.5l6.1,2.6l1.9,0.8c0.2,0.1,0.5,0.2,0.8,0.2c0.4,0,0.7-0.1,1-0.3  c0.5-0.3,0.9-0.9,1-1.5l1.7-20.8c0.1-0.7-0.3-1.4-0.9-1.8c-0.6-0.4-1.4-0.4-2-0.1L3.4,14.1c-0.7,0.4-1.1,1.1-1,1.9  c0,0.8,0.5,1.4,1.2,1.7l8.4,3.5v6c0,0.8,0.5,1.6,1.3,1.9c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.1-0.2,1.5-0.7l2.4-2.8L15.6,24.9z"
@@ -96,12 +99,14 @@ export default defineComponent({
         formData.append('group_id', props.conversation.id)
       }
 
+      newMessage.value = ''
       messageSending.value = true
 
-      const res = await createMessage(newMessage.value)
+      const res = await createMessage(formData)
 
       console.log(res)
-      newMessage.value = ''
+
+      if (res.success) messageSending.value = false
     }
 
     const handleTextareaKeyPress = e => {

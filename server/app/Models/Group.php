@@ -33,9 +33,10 @@ class Group extends Model
 
     public static function getGroupForUser(User $user)
     {
-        $query = self::select(['groups.*', 'messages.message as last_message', 'messages.created_at as last_message_date'])
+        $query = self::select(['groups.*', 'messages.message as last_message', 'messages.created_at as last_message_date', 'messages.sender_id as last_sender_id', 'senders.name as last_sender_name'])
             ->join('group_users', 'group_users.group_id', '=', 'groups.id')
             ->leftJoin('messages', 'messages.id', '=', 'groups.last_message_id')
+            ->leftJoin('users as senders', 'senders.id', '=', 'messages.sender_id')
             ->where('group_users.user_id', $user->id)
             ->orderBy('messages.created_at', 'desc')
             ->orderBy('groups.name');
@@ -57,7 +58,9 @@ class Group extends Model
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'last_message' => $this->last_message,
-            'last_message_date' => $this->last_messsage_date
+            'last_message_date' => $this->last_message_date,
+            'last_sender_id' => $this->last_sender_id,
+            'last_sender_name' => $this->last_sender_name
         ];
     }
 

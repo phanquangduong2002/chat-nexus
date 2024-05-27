@@ -26,7 +26,8 @@ export const useUserStore = defineStore(USER_STORE, {
       removeUserObjStore()
       this.user = null
     }
-  }
+  },
+  persist: true
 })
 
 export default {

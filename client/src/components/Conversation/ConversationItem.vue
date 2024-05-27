@@ -21,12 +21,14 @@
     <div class="ml-3 flex-1 flex flex-col items-start justify-start">
       <div class="w-full relative mb-2 flex items-center justify-between">
         <div class="max-w-[70%] line-clamp-1 text-sm">{{ conversation.name }}</div>
-        <div class="ml-2 text-textColor block group-hover:hidden">9:31 am</div>
+        <div class="ml-2 text-textColor block group-hover:hidden">{{ formatDate(conversation.last_message_date) }}</div>
         <UserOptionsDropdown :conversation="conversation" class="hidden group-hover:block" @click.stop="handleDropdownClick" />
       </div>
       <div class="w-full flex items-center justify-between">
-        <p class="max-w-[80%] line-clamp-1 text-textColor">{{ conversation.last_message }}</p>
-        <div class="w-5 h-5 flex items-center justify-center bg-tertiary rounded-full">5</div>
+        <p class="max-w-[80%] line-clamp-1 text-textColor" v-if="conversation.last_message">
+          {{ userStore.user?.id === conversation.last_sender_id ? 'You: ' : `${conversation.last_sender_name}: ` }} {{ conversation.last_message }}
+        </p>
+        <!-- <div class="w-5 h-5 flex items-center justify-center bg-tertiary rounded-full">5</div> -->
       </div>
     </div>
   </div>
@@ -35,7 +37,10 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useHomeStore } from '../../stores/modules/homeStore'
+import { useUserStore } from '../../stores/modules/userStore'
 import UserOptionsDropdown from '@/components/OptionsDropdown/UserOptionsDropdown.vue'
+
+import { formatDateShort } from '../../helpers/index'
 
 export default defineComponent({
   components: { UserOptionsDropdown },
@@ -46,13 +51,18 @@ export default defineComponent({
   },
   setup() {
     const homeStore = useHomeStore()
+    const userStore = useUserStore()
 
     const handleDropdownClick = event => {
       event.stopPropagation()
     }
-    return { homeStore, handleDropdownClick }
+    return { homeStore, userStore, handleDropdownClick }
   },
-  methods: {}
+  methods: {
+    formatDate(date) {
+      return formatDateShort(date)
+    }
+  }
 })
 </script>
 

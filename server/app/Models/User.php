@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
     {
         $userId = $user->id;
 
-        $query = User::select(['users.*', 'messages.message as last_message', 'messages.created_at as last_message_date'])
+        $query = User::select(['users.*', 'messages.message as last_message', 'messages.created_at as last_message_date', 'messages.sender_id as last_sender_id', 'senders.name as last_sender_name'])
             ->where('users.id', '!=', $userId)
             ->when(!$user->is_admin, function ($query) {
                 $query->whereNull('users.blocked_at');
@@ -84,6 +84,7 @@ class User extends Authenticatable implements JWTSubject
                     });
             })
             ->leftJoin('messages', 'messages.id', '=', 'conversations.last_message_id')
+            ->leftJoin('users as senders', 'senders.id', '=', 'messages.sender_id')
             ->orderByRaw('IFNULL(users.blocked_at, 1)')
             ->orderBy('messages.created_at', 'desc')
             ->orderBy('users.name');
@@ -103,7 +104,9 @@ class User extends Authenticatable implements JWTSubject
             'updated_at' => $this->updated_at,
             'blocked_at' => $this->blocked_at,
             'last_message' => $this->last_message,
-            'last_message_date' => $this->last_messsage_date
+            'last_message_date' => $this->last_message_date,
+            'last_sender_id' => $this->last_sender_id,
+            'last_sender_name' => $this->last_sender_name
         ];
     }
 }
