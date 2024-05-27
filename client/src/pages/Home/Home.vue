@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import ConversationLayout from '@/components/Conversation/ConversationLayout.vue'
@@ -26,9 +26,18 @@ export default defineComponent({
 
     const loading = ref(false)
 
+    watch(
+      () => homeStore.conversations,
+      newConversations => {
+        newConversations.forEach(conversation => {
+          console.log(`New message in conversation ${conversation.id}:`, conversation.last_message)
+        })
+      },
+      { immediate: true }
+    )
+
     return { homeStore, loading }
   },
-  watch: {},
   methods: {
     connectWs() {
       echo

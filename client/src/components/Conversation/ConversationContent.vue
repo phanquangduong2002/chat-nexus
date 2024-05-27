@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, watchEffect, nextTick } from 'vue'
+import { defineComponent, ref, watchEffect, nextTick, watch } from 'vue'
 import { useHomeStore } from '../../stores/modules/homeStore'
 import ConversationAttachment from '@/components/Conversation/ConversationAttachment.vue'
 import ConversationHeader from '@/components/Conversation/ConversationHeader.vue'
@@ -70,11 +70,21 @@ export default defineComponent({
       }
     }
 
-    watchEffect(() => {
-      selectedConversation.value = homeStore.selectedConversation
-      isOpen.value = false
-      loadData()
-    })
+    // watchEffect(() => {
+    //   selectedConversation.value = homeStore.selectedConversation
+    //   isOpen.value = false
+    //   loadData()
+    // })
+
+    watch(
+      () => homeStore.selectedConversation,
+      newConversation => {
+        selectedConversation.value = newConversation
+        isOpen.value = false
+        loadData()
+      },
+      { immediate: true }
+    )
 
     return {
       selectedConversation,
