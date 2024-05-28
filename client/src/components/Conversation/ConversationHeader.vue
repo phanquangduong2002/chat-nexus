@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, watchEffect } from 'vue'
+import { defineComponent, ref, watch, watchEffect } from 'vue'
 import { useHomeStore } from '../../stores/modules/homeStore'
 
 export default defineComponent({
