@@ -38,6 +38,9 @@ export default defineComponent({
 
         echo
           .private(channel)
+          .subscribed(() => {
+            console.log(`Tham gia thành công kênh: ${channel}`)
+          })
           .error(error => {
             console.log(error)
           })
@@ -48,15 +51,15 @@ export default defineComponent({
             // if the conversation with the sender is not selected
             // then show a notification
 
-            emit('message.created', message)
+            // emit('message.created', message)
             if (message.sender_id === userStore.user.id) {
               return
             }
-            emit('newMessageNotification', {
-              user: message.sender,
-              group_id: message.group_id,
-              message: message.message || `Shared ${message.attachments.length === 1 ? 'an attachment' : message.attachments.length + ' attachments'}  `
-            })
+            // emit('newMessageNotification', {
+            //   user: message.sender,
+            //   group_id: message.group_id,
+            //   message: message.message || `Shared ${message.attachments.length === 1 ? 'an attachment' : message.attachments.length + ' attachments'}  `
+            // })
           })
       })
 

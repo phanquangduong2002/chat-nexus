@@ -24,10 +24,6 @@ const echoInstance = () => {
     }
   })
 
-  echo.connector.pusher.connection.bind('error', payload => {
-    console.error('connection error', payload)
-  })
-
   return echo
 }
 
